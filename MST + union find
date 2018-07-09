@@ -1,0 +1,68 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define w(t) while(t--)
+#define ll long long
+#define S(x) scanf("%d",&x)
+#define SLL(x) scanf("%lld",&x)
+#define P(x) printf("%d\n",x)
+#define fl(i , a, b) for(i = (int)a; i<(int)b; i++)
+#define mem(a , value) memset(a , value , sizeof(a))
+#define tr(c, itr) for(itr = (c).begin(); itr != (c).end(); itr++)
+string convertstring(ll n) { stringstream ss; ss << n ; return ss.str(); }
+#define deb(x) cout << "this is the value ->" << x << endl;
+#define MOD 1000000007
+#define inf 1000000010
+#define all(v) v.begin(),v.end()
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+typedef pair<int,int> pp;
+const int N = 1000002;
+int n ,m ; 
+int ui , vi , wi;
+std::vector<pair < int ,pp> > v;
+int par[N]; 
+int cmp(pair < int , pp > a , pair < int , pp > b) {
+	if(a.first < b.first) return 1;
+	else return 0 ; 
+}
+
+int find(int x){
+	if(x == par[x]) return x; 
+	return par[x] = find(par[x]); 
+}
+
+int _union(int x , int y) {
+	int p1= find(x);
+	int p2 = find(y); 
+	if(p1 == p2) return 0; 
+	else{
+		par[p2] = p1;
+		return 1; 
+	}
+}
+
+int main()
+{
+	cin >> n >> m ; 
+	for(int i =0 ; i< m; i++){
+		S(ui) ; S(vi); S(wi) ;
+		v.push_back(mp(wi , mp(ui , vi))); 
+	}
+
+	ll ans=0; 
+
+	for(int i=1;i<=n; i++) par[i] =i; 
+
+	sort(v.begin() , v.end() ,cmp );
+
+	for(int i =0 ; i < v.size(); i++){
+		int c = _union(v[i].s.f, v[i].s.s); 
+		if(c == 1) ans += v[i].f ; 
+	}
+
+	cout << ans << endl; 
+
+	return 0 ; 
+}
