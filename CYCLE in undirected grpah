@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define w(t) while(t--)
+#define ll long long
+#define S(x) scanf("%d",&x)
+#define SLL(x) scanf("%lld",&x)
+#define P(x) printf("%d\n",x)
+#define fl(i , a, b) for(i = (int)a; i<(int)b; i++)
+#define mem(a , value) memset(a , value , sizeof(a))
+#define tr(c, itr) for(itr = (c).begin(); itr != (c).end(); itr++)
+string convertstring(ll n) { stringstream ss; ss << n ; return ss.str(); }
+#define deb(x) cout << "this is the value ->" << x << endl;
+#define MOD 1000000007
+#define inf 1000000010
+#define all(v) v.begin(),v.end()
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+typedef pair<int,int> pp;
+const int N = 10012;
+int vis[N];
+std::vector<int> v[N];
+int flag=0 ; 
+
+void dfs(int u , int par){
+
+	if(vis[u] == 1){
+		flag =1 ; return ; 
+	}
+	vis[u]=1;
+
+	for(int i =0 ; i < v[u].size(); i++){
+		if(v[u][i] != par)
+		dfs(v[u][i] ,u ); 
+	}
+}
+
+int main()
+{
+	int n , m ;
+	int ui , vi ;
+	cin >> n >> m ; 
+	for(int i =0 ; i<m ;i++ ){
+		S(ui); S(vi); 
+		v[ui].pb(vi); v[vi].pb(ui); 
+	}
+
+	for(int i =1;i<=n;i++) vis[i]=0;
+
+	for(int i=1;i<=n;i++){
+		if(!vis[i]) dfs(i , i);
+	}
+	// dfs(ui,ui);
+
+	if(flag)cout << "NO" << endl; 
+	else cout << "YES" << endl; 
+
+	return 0 ; 
+}
